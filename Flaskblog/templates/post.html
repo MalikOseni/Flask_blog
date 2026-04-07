@@ -6,17 +6,17 @@
               <img class="rounded-circle article-img" 
                    src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" 
                    alt="Profile Picture">
-              <a class="mr-2" href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a>
+              <a class="mr-2" href="{{ url_for('users.user', username=post.author.username) }}">{{ post.author.username }}</a>
               <small class="text-muted">{{ post.date_posted.strftime("%Y-%m-%d") }}</small>
 
               {% if current_user == post.author %}
                 <div class="ml-auto">
-                    <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('update_post', post_id=post.id) }}">Update</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
                     <button type="submit" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
                 </div>
                 {% endif %}
                 </div>
-                <h2 class="article-title"> <a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                <h2 class="article-title"> <a href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
                 <hr>
                 <p class="article-content">{{ post.content }}</p>
             </div>
@@ -37,7 +37,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <form method="POST" action="{{ url_for('delete_post', post_id=post.id) }}" style="display: inline;">
+                    <form method="POST" action="{{ url_for('posts.delete_post', post_id=post.id) }}" style="display: inline;">
                         {{ delete_form.hidden_tag() }}
                         {{ delete_form.submit(class="btn btn-danger") }}
                     </form>
